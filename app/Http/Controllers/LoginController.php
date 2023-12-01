@@ -35,4 +35,13 @@ class LoginController extends Controller
 
         return redirect('/transaksi');
     }
+    public function logout(Request $request)
+    {
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
 }
