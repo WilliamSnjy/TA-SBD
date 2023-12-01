@@ -19,6 +19,20 @@ class TransaksiController extends Controller
         ');
         return view('v_transaksi')->with('datas', $datas);
     }
+
+    public function cari(Request $request)
+    {
+    $datas = DB::select('
+        SELECT transaksi.id_transaksi, pelanggan.nama_pelanggan as Nama, transaksi.jumlah_produk As Banyak, barang.nama_barang as Produk, barang.harga, transaksi.jumlah_produk*barang.harga as total
+        FROM transaksi
+        INNER JOIN barang ON barang.id_barang = transaksi.id_barang
+        INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan
+        WHERE transaksi.isdeleted = 0 AND pelanggan.nama_pelanggan like :cari',
+        ['cari' => '%' . strtolower($request->cari) . '%']
+    );
+    return view('v_transaksi')->with('datas', $datas);
+    }
+
     public function create()
     {
         return view('v_addtransaksi');

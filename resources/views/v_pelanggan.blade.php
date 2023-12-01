@@ -5,6 +5,15 @@
 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#deleted">Permanent Delete</button>
 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#restore">Restore</button>
 <a href="/pelanggan/add" class="btn btn-primary btn-sm">Tambah Data</a> </br>
+    <form action="/pelanggan/cari" method="get" class="sidebar-form">
+        <div class= "input-group">
+          <input type="text" name="cari" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" value="CARI" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+    </form>
 
 @if (session('pesan'))
 <div class="alert alert-success alert-dismissible">

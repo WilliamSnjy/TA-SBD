@@ -14,6 +14,16 @@ class BarangController extends Controller
         return view('v_barang')->with('datas', $datas);
     }
 
+    public function cari(Request $request)
+    {
+    $datas = DB::select('
+        SELECT * FROM barang WHERE isdeleted = 0 AND LOWER(nama_barang) LIKE :cari',
+        ['cari' => '%' . strtolower($request->cari) . '%']
+    );
+    return view('v_barang')->with('datas', $datas);
+    }
+
+
     public function create()
     {
         return view('v_addbarang');
