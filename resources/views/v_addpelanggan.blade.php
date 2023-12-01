@@ -9,16 +9,6 @@
         <div class="content">
             <div class="row">
                 <div class="col-sm-6">
-                <div class="form-group">
-                        <label>ID Pelanggan</label>
-                        <input name="id_pelanggan" class="form-control" value="{{ old('id_pelanggan') }}" >
-                        <div class="text-danger">
-                            @error('id_pelanggan')
-                                    {{ $message }}
-                            @enderror
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <label>Nama</label>
                         <input name="nama_pelanggan" class="form-control" value="{{ old('nama_pelanggan') }}" >

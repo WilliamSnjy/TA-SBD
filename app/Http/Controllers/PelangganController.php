@@ -10,7 +10,7 @@ class PelangganController extends Controller
     // public function show all values from a table
     public function index()
     {
-        $datas = DB::select('select * from pelanggan');
+        $datas = DB::select('select * from pelanggan WHERE isdeleted = 0');
         return view('v_pelanggan')->with('datas', $datas);
     }
 
@@ -22,16 +22,15 @@ class PelangganController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_pelanggan' => 'required',
+            'id_pelanggan' => '',
             'nama_pelanggan' => 'required',
             'alamat' => 'required',
             'nomor_telepon' => 'required',
             'email' => 'required',
         ]);
         DB::insert(
-            'INSERT INTO pelanggan(id_pelanggan,nama_pelanggan, alamat, nomor_telepon, email) VALUES (:id_pelanggan, :nama_pelanggan, :alamat, :nomor_telepon, :email)',
+            'INSERT INTO pelanggan(nama_pelanggan, alamat, nomor_telepon, email) VALUES ( :nama_pelanggan, :alamat, :nomor_telepon, :email)',
             [
-                'id_pelanggan' => $request->id_pelanggan,
                 'nama_pelanggan' => $request->nama_pelanggan,
                 'alamat' => $request->alamat,
                 'nomor_telepon' => $request->nomor_telepon,
@@ -74,8 +73,17 @@ class PelangganController extends Controller
     // public function to delete a row from a table
     public function delete($id)
     {
-        DB::delete('DELETE FROM pelanggan WHERE id_pelanggan = :id_pelanggan', ['id_pelanggan' => $id]);
-        return redirect()->route('pelanggan.index')->with('pesan', 'Data Pelanggan berhasil dihapus');
+        DB::delete('UPDATE pelanggan SET isdeleted = 1 WHERE id_pelanggan = :id_pelanggan', ['id_pelanggan' => $id]);
+        return redirect()->route('pelanggan.index')->with('pesan', 'Data Barang berhasil dihapus');
     }
-
+    public function restore()
+    {
+        DB::update('UPDATE pelanggan SET isdeleted = 0 WHERE isdeleted = 1');
+        return redirect()->route('pelanggan.index')->with('pesan', 'Data Barang berhasil dihapus');
+    }
+    public function deleted()
+    {
+        DB::delete('DELETE FROM pelanggan WHERE isdeleted = 1');
+        return redirect()->route('pelanggan.index')->with('pesan', 'Data Barang berhasil dihapus');
+    }
 }

@@ -1,10 +1,10 @@
-@extends ('layout.v_template')
-@section ('title', 'Data Barang')
+@extends('layout.v_template')
+@section('title' , 'Transaksi')
 
 @section('content')
 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#deleted">Permanent Delete</button>
 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#restore">Restore</button>
-<a href="/barang/add" class="btn btn-primary btn-sm">Tambah Data</a> </br>
+<a href="/transaksi/add" class="btn btn-primary btn-sm">Tambah Data</a> </br>
 
 @if (session('pesan'))
 <div class="alert alert-success alert-dismissible">
@@ -16,43 +16,43 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID Barang</th>
-                <th>Nama Barang</th>
+                <th>ID Transaksi</th>
+                <th>Nama</th>
+                <th>Banyak</th>
+                <th>Produk</th>
                 <th>Harga</th>
-                <th>Deskripsi</th>
-                <th>Stok</th>
-                <th>Action</th>
+                <th>Total</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($datas as $data)
                 <tr>
-                    <td>{{ $data->id_barang }}</td>
-                    <td>{{ $data->nama_barang }}</td>
+                    <td>{{ $data->id_transaksi }}</td>
+                    <td>{{ $data->Nama }}</td>
+                    <td>{{ $data->Banyak }}</td>
+                    <td>{{ $data->Produk }}</td>
                     <td>{{ $data->harga }}</td>
-                    <td>{{ $data->deskripsi }}</td>
-                    <td>{{ $data->stok }}</td>
+                    <td>{{ $data->total }}</td>
                     <td>
-                        <a href="/barang/edit/{{ $data->id_barang }}" class="btn btn-sm btn-warning">Edit</a>
-                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete{{ $data->id_barang }}">
-                            Delete
-                        </button>
+                        <a href="/transaksi/edit/{{ $data->id_transaksi }}" class="btn btn-sm btn-warning">Edit</a>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete{{ $data->id_transaksi }}">
+                                Delete
+                            </button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
     @foreach ($datas as $data)
-    <div class="modal modal-danger fade" id="delete{{ $data->id_barang }}">
+    <div class="modal modal-danger fade" id="delete{{ $data->id_transaksi }}">
           <div class="modal-dialog modal-sm">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">{{ $data->id_barang }}</h4>
+                <h4 class="modal-title">{{ $data->id_transaksi }}</h4>
               </div>
-              <form method="POST" action="{{ route('barang.delete', $data->id_barang) }}">
+              <form method="POST" action="{{ route('transaksi.delete', $data->id_transaksi) }}">
                 @csrf
                 <div class="modal-body">
                     <p>Apakah anda yakin ingin menghapus?</p>
@@ -77,7 +77,7 @@
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"> Restore Deleted Data </h4>
                 </div>
-                <form method="POST" action="{{ route('barang.restore') }}">
+                <form method="POST" action="{{ route('transaksi.restore') }}">
                     @csrf
                     <div class="modal-body">
                         <p>Apakah anda yakin ingin merestore data?</p>
@@ -101,7 +101,7 @@
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title"> Permanent Deleted Data </h4>
                 </div>
-                <form method="POST" action="{{ route('barang.deleted') }}">
+                <form method="POST" action="{{ route('transaksi.deleted') }}">
                     @csrf
                     <div class="modal-body">
                         <p>Apakah anda yakin ingin merestore data?</p>

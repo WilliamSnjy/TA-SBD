@@ -10,7 +10,7 @@ class BarangController extends Controller
     // public function show all values from a table
     public function index()
     {
-        $datas = DB::select('select * from barang');
+        $datas = DB::select('select * from barang WHERE isdeleted = 0');
         return view('v_barang')->with('datas', $datas);
     }
 
@@ -22,16 +22,15 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_barang' => 'required',
+            'id_barang' => '',
             'nama_barang' => 'required',
             'harga' => 'required',
             'deskripsi' => 'required',
             'stok' => 'required',
         ]);
         DB::insert(
-            'INSERT INTO barang(id_barang,nama_barang, harga, deskripsi, stok) VALUES (:id_barang, :nama_barang, :harga, :deskripsi, :stok)',
+            'INSERT INTO barang(nama_barang, harga, deskripsi, stok) VALUES (:nama_barang, :harga, :deskripsi, :stok)',
             [
-                'id_barang' => $request->id_barang,
                 'nama_barang' => $request->nama_barang,
                 'harga' => $request->harga,
                 'deskripsi' => $request->deskripsi,
@@ -74,8 +73,17 @@ class BarangController extends Controller
     // public function to delete a row from a table
     public function delete($id)
     {
-        DB::delete('DELETE FROM barang WHERE id_barang = :id_barang', ['id_barang' => $id]);
+        DB::delete('UPDATE barang SET isdeleted = 1 WHERE id_barang = :id_barang', ['id_barang' => $id]);
         return redirect()->route('barang.index')->with('pesan', 'Data Barang berhasil dihapus');
     }
-
+    public function restore()
+    {
+        DB::update('UPDATE barang SET isdeleted = 0 WHERE isdeleted = 1');
+        return redirect()->route('barang.index')->with('pesan', 'Data Barang berhasil dihapus');
+    }
+    public function deleted()
+    {
+        DB::delete('DELETE FROM barang WHERE isdeleted = 1');
+        return redirect()->route('barang.index')->with('pesan', 'Data Barang berhasil dihapus');
+    }
 }
