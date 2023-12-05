@@ -35,7 +35,10 @@ class TransaksiController extends Controller
 
     public function create()
     {
-        return view('v_addtransaksi');
+    $datas1 = DB::select('select * from pelanggan WHERE isdeleted = 0');
+    $datas2 = DB::select('select * from barang WHERE isdeleted = 0');
+
+    return view('v_addtransaksi')->with(['datas1' => $datas1, 'datas2' => $datas2]);
     }
     // public function store the value to a table
     public function store(Request $request)

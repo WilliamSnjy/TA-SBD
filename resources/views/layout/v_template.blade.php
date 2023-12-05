@@ -52,7 +52,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           
               <!-- Menu Footer-->
-              
+              <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i><span> Logout</span></a></li>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->

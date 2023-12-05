@@ -2,9 +2,10 @@
 @section ('title', 'Data Pelanggan')
 
 @section('content')
-<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#deleted">Permanent Delete</button>
+<a href="/pelanggan/add" class="btn btn-primary btn-sm">Tambah Data</a>
 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#restore">Restore</button>
-<a href="/pelanggan/add" class="btn btn-primary btn-sm">Tambah Data</a> </br>
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleted">Permanent Delete</button>
+</br>
     <form action="/pelanggan/cari" method="get" class="sidebar-form">
         <div class= "input-group">
           <input type="text" name="cari" class="form-control" placeholder="Search...">
