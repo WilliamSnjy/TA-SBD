@@ -38,7 +38,7 @@
     <div href="{{asset('template/')}}/index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>TA SBD KEL 38</b></span>
+      <span class="logo-lg"><b>Waroeng Madoera</b></span>
     </div>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -98,9 +98,9 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
+      <b>Version</b> NIAT!!!
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    <strong>Copyright &copy; Praktikum SBD 2023 <a href="https://github.com/WilliamSnjy/TA-SBD.git" target="_blank">Kelompok 38</a>.</strong> Some of the rights
     reserved.
   </footer>
 

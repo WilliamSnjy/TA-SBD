@@ -10,8 +10,10 @@ class BarangController extends Controller
     // public function show all values from a table
     public function index()
     {
-        $datas = DB::select('select * from barang WHERE isdeleted = 0');
-        return view('v_barang')->with('datas', $datas);
+        $datas123 = DB::select('SELECT id_barang, nama_barang, harga, stok-(SELECT IFNULL(SUM(transaksi.jumlah_produk), 0) FROM transaksi WHERE barang.id_barang=transaksi.id_barang  AND transaksi.isdeleted=0) as stok, deskripsi, isdeleted 
+        FROM barang
+        where isdeleted=0');
+        return view('v_barang')->with('datas', $datas123);
     }
 
     public function cari(Request $request)
@@ -89,11 +91,16 @@ class BarangController extends Controller
     public function restore()
     {
         DB::update('UPDATE barang SET isdeleted = 0 WHERE isdeleted = 1');
-        return redirect()->route('barang.index')->with('pesan', 'Data Barang berhasil dihapus');
+        return redirect()->route('barang.index')->with('pesan', 'Data Barang berhasil direstore');
     }
     public function deleted()
     {
-        DB::delete('DELETE FROM barang WHERE isdeleted = 1');
-        return redirect()->route('barang.index')->with('pesan', 'Data Barang berhasil dihapus');
+        try{
+            DB::delete('DELETE FROM barang WHERE isdeleted = 1');
+            return redirect()->route('barang.index')->with('pesan', 'Data Barang berhasil dihapus');
+        }
+        catch(\Exception $e){
+            return redirect()->route('barang.index')->with('error', 'Data Barang gagal dihapus');
+        }
     }
 }

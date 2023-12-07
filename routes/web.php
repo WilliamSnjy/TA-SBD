@@ -45,11 +45,20 @@ Route::middleware(['CheckAuth'])->group(function () {
     Route::get('/transaksi/cari', [TransaksiController::class, 'cari'])->name('transaksi.cari');
     Route::get('/transaksi/add', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/transaksi/insert', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
     Route::get('/transaksi/edit/{id}', [TransaksiController::class, 'edit'])->name('transaksi.edit');
     Route::post('/transaksi/update/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::post('/transaksi/delete/{id}', [TransaksiController::class, 'delete'])->name('transaksi.delete');
+    Route::post('/transaksi/cancel/{id}', [TransaksiController::class, 'cancel'])->name('transaksi.cancel');
     Route::post('/transaksi/restore', [TransaksiController::class, 'restore'])->name('transaksi.restore');
     Route::post('/transaksi/deleted', [TransaksiController::class, 'deleted'])->name('transaksi.deleted');
+    Route::post('/transaksi/canceled', [TransaksiController::class, 'canceled'])->name('transaksi.canceled');
+
+    Route::get('/trash', [TransaksiController::class, 'trash'])->name('transaksi.trash');
+    Route::post('/transaksi/deleteP/{id}', [TransaksiController::class, 'deleteP'])->name('transaksi.deleteP');
+    Route::post('/transaksi/deleteB/{id}', [TransaksiController::class, 'deleteB'])->name('transaksi.deleteB');
+    Route::post('/transaksi/restoreP/{id}', [TransaksiController::class, 'restoreP'])->name('transaksi.restoreP');
+    Route::post('/transaksi/restoreB/{id}', [TransaksiController::class, 'restoreB'])->name('transaksi.restoreB');
 });
 
 Route::get('/', [LoginController::class, 'viewLogin'])->name('layout.v_login');

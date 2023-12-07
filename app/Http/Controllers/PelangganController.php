@@ -46,7 +46,7 @@ class PelangganController extends Controller
                 'email' => $request->email,
             ]
         );
-        return redirect()->route('pelanggan.index')->with('success', 'Data Pelanggan berhasil disimpan');
+        return redirect()->route('pelanggan.index')->with('pesan', 'Data Pelanggan berhasil disimpan');
     }
     // public function edit a row from a table
     public function edit($id)
@@ -77,7 +77,7 @@ class PelangganController extends Controller
             ]
         );
 
-        return redirect()->route('pelanggan.index')->with('success', 'Data Barang berhasil diubah');
+        return redirect()->route('pelanggan.index')->with('pesan', 'Data Pelanggan berhasil diubah');
     }
     // public function to delete a row from a table
     public function delete($id)
@@ -88,11 +88,16 @@ class PelangganController extends Controller
     public function restore()
     {
         DB::update('UPDATE pelanggan SET isdeleted = 0 WHERE isdeleted = 1');
-        return redirect()->route('pelanggan.index')->with('pesan', 'Data Barang berhasil dihapus');
+        return redirect()->route('pelanggan.index')->with('pesan', 'Data Pelanggan berhasil direstore');
     }
     public function deleted()
     {
-        DB::delete('DELETE FROM pelanggan WHERE isdeleted = 1');
-        return redirect()->route('pelanggan.index')->with('pesan', 'Data Barang berhasil dihapus');
+        try{
+            DB::delete('DELETE FROM pelanggan WHERE isdeleted = 1');
+            return redirect()->route('pelanggan.index')->with('pesan', 'Data Pelanggan berhasil dihapus');
+        }
+        catch(\Exception $e){
+            return redirect()->route('pelanggan.index')->with('error', 'Data Pelanggan gagal dihapus');
+        }
     }
 }
